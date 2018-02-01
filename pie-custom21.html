@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '折柱混合';
+var data1=[126,119,92,94,96,75,68,113,93,129,68,61];
+var data2=[100,100,100,100,100,100,100,100,100,100,100,100];
+option = {
+    color:['#059500','#E43D4F'],
+   
+    tooltip: {
+        
+        trigger: 'axis',
+        
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    toolbox: {
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data:[]//表头样式
+    },
+    xAxis: [
+        {
+            type: 'category',
+            name: '',
+            data: ['1#', '2#', '3#', '4#', '5#', '6#', '7#','8#','9#','10#','11#','12#'],
+            axisPointer: {
+                type: 'shadow'
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            name: 'AQI',
+            min: 0,
+            max: 150,
+            interval: 30,
+            axisLabel: {
+                formatter: '{value} '
+            }
+        }
+    ],
+    series: [
+        {
+            name:'AQI',
+            type:'bar',
+            barWidth:20,
+            itemStyle:{
+                normal:{
+                    color:function(item){
+                        console.log(item)
+                        //for(var i=0;i<data1.lefth;i++){
+                            if(data1[item.dataIndex]>data2[item.dataIndex]){
+                                return '#FA8718';
+                            }
+                            else{
+                                return '#d4cf18';
+                            }
+                        //}
+                    }
+                }},
+            data:data1        
+        },
+        
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
